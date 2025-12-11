@@ -18,6 +18,9 @@ on:
         required: false
         default: 'true'
 
+permissions:
+  contents: write  # Need write permission to commit trading data back to repo
+
 jobs:
   run-bot:
     runs-on: ubuntu-latest
