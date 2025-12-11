@@ -5,9 +5,14 @@ This module implements a trading strategy that follows daily market trends
 using technical indicators, AI analysis, and price predictions.
 """
 
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, TYPE_CHECKING
 import pandas as pd
 from datetime import datetime, timedelta
+
+if TYPE_CHECKING:
+    from ..data_sources.base import BaseDataSource
+    from ..ai_providers.base import BaseAIProvider
+    from ..models.price_predictor import PricePredictor
 
 
 class DailyTrendStrategy:
@@ -23,9 +28,9 @@ class DailyTrendStrategy:
 
     def __init__(
         self,
-        data_source,
-        ai_provider=None,
-        price_predictor=None,
+        data_source: Optional['BaseDataSource'],
+        ai_provider: Optional['BaseAIProvider'] = None,
+        price_predictor: Optional['PricePredictor'] = None,
         config: Optional[Dict] = None
     ):
         """

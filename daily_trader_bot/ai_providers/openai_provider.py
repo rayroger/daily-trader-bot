@@ -91,7 +91,7 @@ class OpenAIProvider(BaseAIProvider):
             # Try to parse JSON response
             result = json.loads(response)
             return result
-        except:
+        except (json.JSONDecodeError, ValueError):
             # Fallback if not valid JSON
             if "positive" in response.lower():
                 return {"score": 0.5, "label": "positive", "confidence": 0.6}
@@ -200,7 +200,7 @@ class OpenAIProvider(BaseAIProvider):
         try:
             result = json.loads(response)
             return result
-        except:
+        except (json.JSONDecodeError, ValueError):
             return {
                 "action": "hold",
                 "confidence": 0.3,

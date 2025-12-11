@@ -39,8 +39,8 @@ def test_paper_broker():
     broker = PaperTradingBroker(config)
     
     # Test connection
-    assert broker.connect() == True
-    assert broker.connected == True
+    assert broker.connect()
+    assert broker.connected
     
     # Test balance
     balance = broker.get_account_balance()
@@ -99,7 +99,7 @@ def test_paper_broker():
     print(f"  Profit/Loss: ${profit:,.2f} ({(profit/10000.0)*100:.2f}%)")
     
     broker.disconnect()
-    assert broker.connected == False
+    assert not broker.connected
     
     print("✓ Paper broker tests passed")
 
@@ -121,7 +121,7 @@ def test_bot_initialization():
     
     # Test connection
     bot.connect()
-    assert bot.broker.connected == True
+    assert bot.broker.connected
     print("  ✓ Connected to broker")
     
     # Test portfolio status
@@ -191,7 +191,7 @@ def test_price_predictor_structure():
     config = {'n_estimators': 50, 'max_depth': 5}
     predictor = PricePredictor(config)
     
-    assert predictor.is_trained == False
+    assert not predictor.is_trained
     print("  ✓ Price predictor initialized")
     
     # Create mock data for training
@@ -213,7 +213,7 @@ def test_price_predictor_structure():
     # Train model
     results = predictor.train(data)
     
-    assert predictor.is_trained == True
+    assert predictor.is_trained
     print(f"  ✓ Model trained with R²: {results['val_r2']:.4f}")
     
     # Test prediction

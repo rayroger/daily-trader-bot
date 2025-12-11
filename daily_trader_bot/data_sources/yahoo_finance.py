@@ -137,7 +137,7 @@ class YahooFinanceDataSource(BaseDataSource):
                 "name": info.get("longName", "Unknown"),
                 "exchange": info.get("exchange", "Unknown"),
             }]
-        except:
+        except Exception:
             return []
 
     def get_company_info(self, symbol: str) -> Dict:
@@ -198,7 +198,7 @@ class YahooFinanceDataSource(BaseDataSource):
                     "status": "closed",
                     "last_update": None,
                 }
-        except:
+        except Exception:
             return {
                 "is_open": False,
                 "status": "unknown",
