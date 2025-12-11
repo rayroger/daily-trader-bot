@@ -1,9 +1,190 @@
 {
   "date": "2025-12-11",
   "session": {
-    "timestamp": "2025-12-11T20:52:30.814856",
+    "timestamp": "2025-12-11T21:27:04.682909",
     "symbols_analyzed": 5,
-    "signals": [],
+    "signals": [
+      {
+        "symbol": "AAPL",
+        "action": "hold",
+        "confidence": 0.5,
+        "reasoning": [
+          "Confidence 0.50 below threshold 0.6"
+        ],
+        "current_price": 278.0299987792969,
+        "stop_loss": null,
+        "take_profit": null,
+        "analysis": {
+          "symbol": "AAPL",
+          "trend_direction": "neutral",
+          "trend_strength": 1.6693891537761545,
+          "indicators": {
+            "sma_short": 280.36500244140626,
+            "sma_long": 276.0325012207031,
+            "ema_short": 278.4681056776827,
+            "current_price": 278.0299987792969,
+            "momentum": 1.8611417274502557,
+            "volume_ratio": 0.6979319691343779,
+            "volatility": 1.1148639148878843,
+            "rsi": 68.81787841530988,
+            "macd": 3.5838155527959543,
+            "macd_signal": 4.28057703833929,
+            "bb_upper": 287.43798715492784,
+            "bb_middle": 276.0325012207031,
+            "bb_lower": 264.6270152864784,
+            "trend_strength": 1.6693891537761545
+          },
+          "ai_analysis": null,
+          "price_prediction": null,
+          "timestamp": "2025-12-11T21:27:05.067066"
+        },
+        "timestamp": "2025-12-11T21:27:05.067084"
+      },
+      {
+        "symbol": "MSFT",
+        "action": "hold",
+        "confidence": 0.5,
+        "reasoning": [
+          "Confidence 0.50 below threshold 0.6"
+        ],
+        "current_price": 483.4700012207031,
+        "stop_loss": null,
+        "take_profit": null,
+        "analysis": {
+          "symbol": "MSFT",
+          "trend_direction": "neutral",
+          "trend_strength": 2.857093931915626,
+          "indicators": {
+            "sma_short": 485.55499877929685,
+            "sma_long": 486.989306640625,
+            "ema_short": 485.1498877119633,
+            "current_price": 483.4700012207031,
+            "momentum": -3.7582958214319695,
+            "volume_ratio": 0.90962403996963,
+            "volatility": 1.3154260626328464,
+            "rsi": 53.16344985765999,
+            "macd": -5.800991817649731,
+            "macd_signal": -6.731136970061747,
+            "bb_upper": 507.56392020251843,
+            "bb_middle": 486.989306640625,
+            "bb_lower": 466.41469307873155,
+            "trend_strength": 2.857093931915626
+          },
+          "ai_analysis": null,
+          "price_prediction": null,
+          "timestamp": "2025-12-11T21:27:05.221155"
+        },
+        "timestamp": "2025-12-11T21:27:05.221172"
+      },
+      {
+        "symbol": "GOOGL",
+        "action": "hold",
+        "confidence": 0.5,
+        "reasoning": [
+          "Confidence 0.50 below threshold 0.6"
+        ],
+        "current_price": 312.42999267578125,
+        "stop_loss": null,
+        "take_profit": null,
+        "analysis": {
+          "symbol": "GOOGL",
+          "trend_direction": "neutral",
+          "trend_strength": 5.988998921445424,
+          "indicators": {
+            "sma_short": 317.1591827392578,
+            "sma_long": 306.8910797119141,
+            "ema_short": 314.7973409200637,
+            "current_price": 312.42999267578125,
+            "momentum": 12.228291045541024,
+            "volume_ratio": 0.8295985436421935,
+            "volatility": 2.041792160248005,
+            "rsi": 65.45128175905046,
+            "macd": 10.876781417889106,
+            "macd_signal": 12.21611826633215,
+            "bb_upper": 339.4229186067476,
+            "bb_middle": 306.8910797119141,
+            "bb_lower": 274.35924081708055,
+            "trend_strength": 5.988998921445424
+          },
+          "ai_analysis": null,
+          "price_prediction": null,
+          "timestamp": "2025-12-11T21:27:05.338341"
+        },
+        "timestamp": "2025-12-11T21:27:05.338358"
+      },
+      {
+        "symbol": "AMZN",
+        "action": "hold",
+        "confidence": 0.5,
+        "reasoning": [
+          "Confidence 0.50 below threshold 0.6"
+        ],
+        "current_price": 230.27999877929688,
+        "stop_loss": null,
+        "take_profit": null,
+        "analysis": {
+          "symbol": "AMZN",
+          "trend_direction": "neutral",
+          "trend_strength": 1.3363361214601903,
+          "indicators": {
+            "sma_short": 230.94100036621094,
+            "sma_long": 229.1365005493164,
+            "ema_short": 230.05406303125898,
+            "current_price": 230.27999877929688,
+            "momentum": -3.072650473733438,
+            "volume_ratio": 0.6338091641691219,
+            "volatility": 2.299309600623538,
+            "rsi": 69.8729679745262,
+            "macd": -0.3116099518821329,
+            "macd_signal": -0.131791544742859,
+            "bb_upper": 239.57232799812465,
+            "bb_middle": 229.1365005493164,
+            "bb_lower": 218.70067310050814,
+            "trend_strength": 1.3363361214601903
+          },
+          "ai_analysis": null,
+          "price_prediction": null,
+          "timestamp": "2025-12-11T21:27:05.590911"
+        },
+        "timestamp": "2025-12-11T21:27:05.590928"
+      },
+      {
+        "symbol": "TSLA",
+        "action": "hold",
+        "confidence": 0.5,
+        "reasoning": [
+          "Confidence 0.50 below threshold 0.6"
+        ],
+        "current_price": 446.8900146484375,
+        "stop_loss": null,
+        "take_profit": null,
+        "analysis": {
+          "symbol": "TSLA",
+          "trend_direction": "bullish",
+          "trend_strength": 3.95289475234964,
+          "indicators": {
+            "sma_short": 442.89100341796876,
+            "sma_long": 424.97450103759763,
+            "ema_short": 441.6517983920911,
+            "current_price": 446.8900146484375,
+            "momentum": 11.16943842006716,
+            "volume_ratio": 0.7060307729775461,
+            "volatility": 2.8256351660837753,
+            "rsi": 75.38323124329916,
+            "macd": 4.84910782268031,
+            "macd_signal": 1.2864497729767224,
+            "bb_upper": 467.1670418021567,
+            "bb_middle": 424.97450103759763,
+            "bb_lower": 382.7819602730386,
+            "trend_strength": 3.95289475234964
+          },
+          "ai_analysis": null,
+          "price_prediction": null,
+          "timestamp": "2025-12-11T21:27:05.807722"
+        },
+        "timestamp": "2025-12-11T21:27:05.807738"
+      }
+    ],
     "orders": [],
     "portfolio": {
       "balance": 100000.0,
@@ -15,6 +196,6 @@
     "position_value": 0,
     "total_value": 100000.0,
     "positions": [],
-    "timestamp": "2025-12-11T20:52:30.836152"
+    "timestamp": "2025-12-11T21:27:05.808235"
   }
 }
