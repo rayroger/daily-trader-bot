@@ -1,0 +1,30 @@
+{
+  "broker": {
+    "type": "paper_trading",
+    "initial_balance": 100000.0
+  },
+  "trading": {
+    "symbols": "AAPL,MSFT,GOOGL,AMZN,TSLA",
+    "auto_execute": true,
+    "default_quantity": 10
+  },
+  "strategy": {
+    "trend_period": 20,
+    "min_confidence": 0.6,
+    "stop_loss_pct": 0.05,
+    "take_profit_pct": 0.10
+  },
+  "data_source": {
+    "type": "yahoo_finance",
+    "lookback_days": 60
+  },
+  "model": {
+    "n_estimators": 100,
+    "max_depth": 10,
+    "random_state": 42
+  },
+  "ai_provider": {
+    "type": "openai",
+    "model": "gpt-3.5-turbo"
+  }
+}

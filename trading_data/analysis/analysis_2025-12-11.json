@@ -1,0 +1,20 @@
+{
+  "date": "2025-12-11",
+  "session": {
+    "timestamp": "2025-12-11T20:52:30.814856",
+    "symbols_analyzed": 5,
+    "signals": [],
+    "orders": [],
+    "portfolio": {
+      "balance": 100000.0,
+      "positions": []
+    }
+  },
+  "portfolio": {
+    "cash_balance": 100000.0,
+    "position_value": 0,
+    "total_value": 100000.0,
+    "positions": [],
+    "timestamp": "2025-12-11T20:52:30.836152"
+  }
+}

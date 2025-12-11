@@ -153,6 +153,9 @@ Thumbs.db
 config.json
 *.csv
 *.log
-trading_data/
-models/
 backtest_results/
+
+# Trained models (not source code)
+models/*.pkl
+models/*.joblib
+models/*.h5

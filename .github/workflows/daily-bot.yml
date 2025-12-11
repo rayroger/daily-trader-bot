@@ -1,0 +1,77 @@
+name: Daily Trading Bot
+
+on:
+  # Run daily at 4:30 PM Eastern Time (after market close)
+  # This is 21:30 UTC
+  schedule:
+    - cron: '30 21 * * 1-5'  # Monday through Friday
+  
+  # Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      symbols:
+        description: 'Comma-separated symbols to analyze (optional)'
+        required: false
+        default: ''
+      execute_trades:
+        description: 'Execute trades (true/false)'
+        required: false
+        default: 'true'
+
+permissions:
+  contents: write  # Need write permission to commit trading data back to repo
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        # Fetch full history for proper git operations
+        fetch-depth: 0
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Configure git
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+    
+    - name: Run daily trading bot
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        echo "Running daily trading bot..."
+        python run_daily_bot.py
+    
+    - name: Commit and push changes
+      run: |
+        # Check if there are changes to commit
+        if [[ -n $(git status --porcelain) ]]; then
+          git add trading_data/
+          git commit -m "📊 Daily bot run - $(date +'%Y-%m-%d %H:%M:%S UTC')"
+          git push
+          echo "Changes committed and pushed"
+        else
+          echo "No changes to commit"
+        fi
+    
+    - name: Upload trading logs as artifact
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: trading-logs-${{ github.run_number }}
+        path: |
+          trading_data/
+        retention-days: 90

@@ -216,3 +216,49 @@ class PaperTradingBroker(BaseBroker):
             for symbol, details in self.positions.items()
         )
         return self.balance + position_value
+    
+    def get_state(self) -> Dict:
+        """
+        Get current broker state for persistence.
+        
+        Returns:
+            Dictionary with broker state
+        """
+        return {
+            'balance': self.balance,
+            'initial_balance': self.initial_balance,
+            'positions': dict(self.positions),
+            'order_history': [
+                {
+                    'order_id': o['order_id'],
+                    'symbol': o['symbol'],
+                    'quantity': o['quantity'],
+                    'order_type': o['order_type'],
+                    'side': o['side'],
+                    'price': o['price'],
+                    'status': o['status'],
+                    'timestamp': o['timestamp'].isoformat() if isinstance(o['timestamp'], datetime) else o['timestamp']
+                }
+                for o in self.order_history
+            ]
+        }
+    
+    def load_state(self, state: Dict) -> None:
+        """
+        Load broker state from saved data.
+        
+        Args:
+            state: Dictionary with broker state
+        """
+        self.balance = state.get('balance', self.initial_balance)
+        self.initial_balance = state.get('initial_balance', self.initial_balance)
+        self.positions = state.get('positions', {})
+        
+        # Load order history
+        self.order_history = []
+        for order_data in state.get('order_history', []):
+            order = dict(order_data)
+            # Convert timestamp string back to datetime if needed
+            if isinstance(order['timestamp'], str):
+                order['timestamp'] = datetime.fromisoformat(order['timestamp'])
+            self.order_history.append(order)
