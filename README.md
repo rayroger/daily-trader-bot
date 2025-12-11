@@ -7,6 +7,11 @@ A Python-based AI-assisted trading bot designed to follow daily market trends. T
 - 🤖 **Various AI providers** - Leverage OpenAI, Anthropic, or custom AI models for market analysis
 - 📈 **Price prediction** - Train and use ML models to predict stock prices
 - 🎯 **Daily trend following** - Automated strategy that analyzes and trades based on daily trends
+- 🤖 **GitHub Actions automation** - Run daily automatically with data stored in repo
+
+## 🚀 Quick Start for Automated Trading
+
+Want to set up automated daily trading in 5 minutes? See **[QUICKSTART.md](QUICKSTART.md)** for step-by-step instructions to configure GitHub Actions and start automated paper trading.
 
 ## Features
 
