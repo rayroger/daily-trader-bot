@@ -260,6 +260,5 @@ class PaperTradingBroker(BaseBroker):
             order = dict(order_data)
             # Convert timestamp string back to datetime if needed
             if isinstance(order['timestamp'], str):
-                from datetime import datetime as dt
-                order['timestamp'] = dt.fromisoformat(order['timestamp'])
+                order['timestamp'] = datetime.fromisoformat(order['timestamp'])
             self.order_history.append(order)

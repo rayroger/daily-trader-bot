@@ -117,7 +117,7 @@ class PricePredictor:
             from sklearn.preprocessing import StandardScaler
             from sklearn.model_selection import train_test_split
         except ImportError:
-            raise ImportError("scikit-learn is required for price prediction. Install with: pip install scikit-learn")
+            raise ImportError("scikit-learn is required for price prediction. Install dependencies with: pip install -r requirements.txt")
         
         # Engineer features
         df = self._engineer_features(data)

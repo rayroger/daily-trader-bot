@@ -77,7 +77,12 @@ def main():
     
     # Get symbols to analyze from config or use defaults
     symbols_str = config.get('trading.symbols', 'AAPL,MSFT,GOOGL,AMZN,TSLA')
-    symbols = [s.strip() for s in symbols_str.split(',')]
+    symbols = [s.strip() for s in (symbols_str or '').split(',') if s.strip()]
+    
+    if not symbols:
+        logger.error("No valid symbols to analyze. Please configure trading.symbols")
+        return 1
+    
     logger.info(f"Analyzing symbols: {', '.join(symbols)}")
     
     # Run trading session

@@ -2,7 +2,7 @@ name: Daily Trading Bot
 
 on:
   # Run daily at 4:30 PM Eastern Time (after market close)
-  # This is 21:30 UTC (9:30 PM UTC)
+  # This is 21:30 UTC
   schedule:
     - cron: '30 21 * * 1-5'  # Monday through Friday
   
