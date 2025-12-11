@@ -153,6 +153,5 @@ Thumbs.db
 config.json
 *.csv
 *.log
-trading_data/
 models/
 backtest_results/

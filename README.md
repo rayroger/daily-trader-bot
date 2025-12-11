@@ -110,6 +110,102 @@ print(f"Analyzed {session['symbols_analyzed']} symbols")
 print(f"Executed {len(session['orders'])} orders")
 ```
 
+## Automated Daily Trading with GitHub Actions
+
+The bot is configured to run automatically every day using GitHub Actions. This allows fully automated trading without manual intervention.
+
+### Features
+
+- 🕐 **Scheduled Execution** - Runs daily at 4:30 PM ET (after market close) on weekdays
+- 💾 **Persistent Storage** - All portfolio data and trading history stored in the repository
+- 📊 **Automatic Tracking** - Every trade is logged and version-controlled via Git
+- 🔄 **Resume from Last State** - Bot resumes from the last saved portfolio state
+- 🎯 **Manual Triggers** - Can be triggered manually via GitHub Actions UI
+
+### Setup Instructions
+
+1. **Enable GitHub Actions** in your repository settings
+
+2. **Optional: Add OpenAI API Key** (for AI-powered analysis)
+   - Go to Repository Settings → Secrets and Variables → Actions
+   - Add a secret named `OPENAI_API_KEY` with your OpenAI API key
+   - The bot works without this, but AI features will be disabled
+
+3. **Configure Trading Symbols** (optional)
+   - Edit `daily_trader_bot/utils/config.py` to customize default symbols
+   - Or set via the `trading.symbols` config parameter
+
+4. **Review the Workflow**
+   - The workflow file is at `.github/workflows/daily-bot.yml`
+   - Default schedule: Monday-Friday at 21:30 UTC (4:30 PM ET)
+
+### How It Works
+
+1. **GitHub Actions triggers** the workflow at the scheduled time
+2. **Bot initializes** and loads the previous portfolio state from `trading_data/`
+3. **Analysis runs** on configured symbols (AAPL, MSFT, GOOGL, AMZN, TSLA by default)
+4. **Trades execute** based on the strategy (in paper trading mode)
+5. **Results are saved** to `trading_data/` directory:
+   - `portfolio_state.json` - Current portfolio state
+   - `trading_history.json` - Complete trading history
+   - `analysis/analysis_YYYY-MM-DD.json` - Daily analysis results
+6. **Changes are committed** back to the repository automatically
+
+### Data Storage
+
+All trading data is stored in the `trading_data/` directory:
+
+```
+trading_data/
+├── README.md                    # Documentation
+├── portfolio_state.json         # Current portfolio state
+├── trading_history.json         # Complete trading history
+└── analysis/                    # Daily analysis files
+    ├── analysis_2025-12-11.json
+    └── analysis_2025-12-12.json
+```
+
+### Manual Execution
+
+You can manually trigger a bot run:
+
+1. Go to **Actions** tab in GitHub
+2. Select **Daily Trading Bot** workflow
+3. Click **Run workflow**
+4. Optionally customize:
+   - Symbols to analyze (comma-separated)
+   - Whether to execute trades
+
+### Running Locally
+
+To test the bot locally before automation:
+
+```bash
+# Run the daily bot script
+python run_daily_bot.py
+
+# Check the generated data
+ls -l trading_data/
+cat trading_data/portfolio_state.json
+```
+
+### Monitoring
+
+- **GitHub Actions logs** - View detailed logs of each run in the Actions tab
+- **Commit history** - Each bot run creates a commit with trading data updates
+- **Artifacts** - Trading logs are saved as artifacts for 90 days
+
+### Configuration
+
+The bot can be configured via the Config class or environment variables:
+
+```python
+# trading.symbols - Comma-separated list of symbols
+# trading.auto_execute - Whether to execute trades (true/false)
+# trading.default_quantity - Default number of shares per trade
+# broker.initial_balance - Starting balance for paper trading
+```
+
 ## Architecture
 
 ### Project Structure
