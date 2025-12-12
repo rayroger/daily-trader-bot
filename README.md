@@ -126,6 +126,7 @@ The bot is configured to run automatically every day using GitHub Actions. This 
 - 📊 **Automatic Tracking** - Every trade is logged and version-controlled via Git
 - 🔄 **Resume from Last State** - Bot resumes from the last saved portfolio state
 - 🎯 **Manual Triggers** - Can be triggered manually via GitHub Actions UI
+- 📈 **Daily Status Reports** - Automated performance reports with benchmark comparisons
 
 ### Setup Instructions
 
@@ -165,9 +166,13 @@ trading_data/
 ├── README.md                    # Documentation
 ├── portfolio_state.json         # Current portfolio state
 ├── trading_history.json         # Complete trading history
-└── analysis/                    # Daily analysis files
-    ├── analysis_2025-12-11.json
-    └── analysis_2025-12-12.json
+├── analysis/                    # Daily analysis files
+│   ├── analysis_2025-12-11.json
+│   └── analysis_2025-12-12.json
+└── reports/                     # Daily status reports
+    ├── README.md
+    ├── status_report_2025-12-11.txt
+    └── status_report_2025-12-12.txt
 ```
 
 ### Manual Execution
@@ -199,6 +204,66 @@ cat trading_data/portfolio_state.json
 - **GitHub Actions logs** - View detailed logs of each run in the Actions tab
 - **Commit history** - Each bot run creates a commit with trading data updates
 - **Artifacts** - Trading logs are saved as artifacts for 90 days
+- **Daily Status Reports** - Comprehensive performance reports with benchmark comparisons
+
+### Daily Status Reports
+
+The bot automatically generates daily status reports showing portfolio performance compared to market benchmarks (SPY and QQQ/NASDAQ). These reports include:
+
+- **Portfolio Overview**: Current balance, positions, and trading activity
+- **Performance Metrics**: Returns over various time periods (daily, weekly, monthly, overall)
+- **Benchmark Comparison**: How your portfolio performs vs. S&P 500 (SPY) and NASDAQ-100 (QQQ)
+- **Position Details**: Current holdings with unrealized profit/loss
+
+#### Automated Report Generation
+
+Reports are automatically generated daily at 5:00 PM ET via GitHub Actions (after the trading bot runs). The workflow is defined in `.github/workflows/daily-status-report.yml`.
+
+#### Manual Report Generation
+
+To generate a report manually:
+
+```bash
+python generate_daily_status.py
+```
+
+Reports are saved to `trading_data/reports/status_report_YYYY-MM-DD.txt` and committed to the repository.
+
+#### Example Report
+
+```
+======================================================================
+📊 DAILY TRADING BOT STATUS REPORT
+======================================================================
+Report Date: 2025-12-12 08:16:52
+
+💼 PORTFOLIO OVERVIEW
+----------------------------------------------------------------------
+Initial Balance:        $     100,000.00
+Current Value:          $     105,250.00
+Cash Balance:           $      52,125.00
+Position Value:         $      53,125.00
+Active Positions:                     3
+Trading Days:                        10
+
+📈 PERFORMANCE METRICS
+----------------------------------------------------------------------
+Overall Return:         +          5.25%
+Overall Profit/Loss:    +$      5,250.00
+
+Daily Return:           +          1.25%
+Daily Profit/Loss:      +$      1,312.50
+
+📊 BENCHMARK COMPARISON
+----------------------------------------------------------------------
+SPY (S&P 500):
+  Daily Return:         +          0.75%
+  vs. Portfolio:        +          0.50% 📈
+
+QQQ (NASDAQ-100):
+  Daily Return:         +          1.10%
+  vs. Portfolio:        +          0.15% 📈
+```
 
 ### Configuration
 
