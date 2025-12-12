@@ -27,6 +27,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Benchmark definitions
+BENCHMARK_SPY = {'symbol': 'SPY', 'name': 'S&P 500'}
+BENCHMARK_QQQ = {'symbol': 'QQQ', 'name': 'NASDAQ-100'}
+
 
 class DailyStatusReporter:
     """Generate daily status reports for the trading bot portfolio."""
@@ -167,8 +171,8 @@ class DailyStatusReporter:
         returns = self.calculate_portfolio_returns(portfolio_state, history)
         
         # Get benchmark performance
-        spy_perf = self.get_benchmark_performance('SPY', days=1)
-        qqq_perf = self.get_benchmark_performance('QQQ', days=1)  # NASDAQ-100 ETF
+        spy_perf = self.get_benchmark_performance(BENCHMARK_SPY['symbol'], days=1)
+        qqq_perf = self.get_benchmark_performance(BENCHMARK_QQQ['symbol'], days=1)
         
         # Build report
         report_lines = []
@@ -235,13 +239,13 @@ class DailyStatusReporter:
                 vs_spy_sign = "+" if vs_spy >= 0 else ""
                 report_lines.append(f"  vs. Portfolio:        {vs_spy_sign}{vs_spy:>14.2f}% {'📈' if vs_spy > 0 else '📉' if vs_spy < 0 else '➡️'}")
         else:
-            report_lines.append("SPY (S&P 500):        Data unavailable")
+            report_lines.append(f"{BENCHMARK_SPY['name']}:        Data unavailable")
         
         report_lines.append("")
         
         if qqq_perf:
             qqq_sign = "+" if qqq_perf['daily_return'] >= 0 else ""
-            report_lines.append(f"QQQ (NASDAQ-100):")
+            report_lines.append(f"{BENCHMARK_QQQ['symbol']} ({BENCHMARK_QQQ['name']}):")
             report_lines.append(f"  Daily Return:         {qqq_sign}{qqq_perf['daily_return']:>14.2f}%")
             report_lines.append(f"  Current Price:        ${qqq_perf['current_price']:>15,.2f}")
             
@@ -251,7 +255,7 @@ class DailyStatusReporter:
                 vs_qqq_sign = "+" if vs_qqq >= 0 else ""
                 report_lines.append(f"  vs. Portfolio:        {vs_qqq_sign}{vs_qqq:>14.2f}% {'📈' if vs_qqq > 0 else '📉' if vs_qqq < 0 else '➡️'}")
         else:
-            report_lines.append("QQQ (NASDAQ-100):     Data unavailable")
+            report_lines.append(f"{BENCHMARK_QQQ['symbol']} ({BENCHMARK_QQQ['name']}):     Data unavailable")
         
         report_lines.append("")
         
