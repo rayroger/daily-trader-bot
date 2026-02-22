@@ -110,8 +110,8 @@ def main():
         # Log orders
         for order in session_results['orders']:
             logger.info(
-                f"  ORDER: {order['side'].upper()} {order['quantity']} {order['symbol']} "
-                f"@ ${order['price']:.2f} - {order['status']}"
+                f"  ORDER: {(order.get('side') or 'unknown').upper()} {order.get('quantity', '?')} {order.get('symbol', '?')} "
+                f"@ ${order.get('price', 0):.2f} - {order.get('status', 'unknown')}"
             )
         
         # Get updated portfolio status

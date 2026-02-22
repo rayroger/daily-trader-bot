@@ -204,8 +204,6 @@ class TradingBot:
                     side='buy',
                     price=current_price
                 )
-                self.logger.info(f"BUY order placed: {symbol} x{quantity} @ ${current_price:.2f}")
-                
             elif action == 'sell':
                 order = self.broker.place_order(
                     symbol=symbol,
@@ -214,10 +212,16 @@ class TradingBot:
                     side='sell',
                     price=current_price
                 )
-                self.logger.info(f"SELL order placed: {symbol} x{quantity} @ ${current_price:.2f}")
             else:
                 return None
-            
+
+            if not order or order.get('status') == 'rejected':
+                self.logger.warning(
+                    f"{action.upper()} order rejected for {symbol}: {order.get('reason', 'unknown reason')}"
+                )
+                return None
+
+            self.logger.info(f"{action.upper()} order placed: {symbol} x{quantity} @ ${current_price:.2f}")
             return order
             
         except Exception as e:
