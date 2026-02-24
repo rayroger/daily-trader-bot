@@ -25,6 +25,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+CONFIG_FILE = 'config.json'
+
+
 def main():
     """Main trading bot execution."""
     logger.info("=" * 60)
@@ -35,8 +38,13 @@ def main():
     # Initialize data store
     data_store = DataStore()
     
-    # Initialize configuration
-    config = Config()
+    # Initialize configuration - load CONFIG_FILE from repo root if present
+    if os.path.exists(CONFIG_FILE):
+        logger.info(f"Loading configuration from {CONFIG_FILE}")
+        config = Config(CONFIG_FILE)
+    else:
+        logger.info(f"No {CONFIG_FILE} found; using built-in defaults")
+        config = Config()
     
     # Check if portfolio exists, otherwise initialize
     portfolio_state = data_store.load_portfolio_state()
