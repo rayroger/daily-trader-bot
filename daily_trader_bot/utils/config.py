@@ -58,7 +58,7 @@ class Config:
             'strategy': {
                 'trend_period': 20,
                 'volume_threshold': 1.5,
-                'min_confidence': 0.6,
+                'min_confidence': 0.55,
                 'stop_loss_pct': 0.05,
                 'take_profit_pct': 0.10
             },
