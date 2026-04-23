@@ -325,12 +325,12 @@ class DailyTrendStrategy:
             pred = analysis['price_prediction']
             pred_change = pred['predicted_change_pct']
             
-            if abs(pred_change) > 2:  # Significant predicted change
+            if abs(pred_change) > 1:  # Significant predicted change (>1% daily move)
                 if pred_change > 0 and action == 'buy':
-                    confidence = min(0.95, confidence + 0.1)
+                    confidence = min(0.95, confidence + 0.15)
                     reasoning.append(f"Price model predicts {pred_change:.2f}% increase")
                 elif pred_change < 0 and action == 'sell':
-                    confidence = min(0.95, confidence + 0.1)
+                    confidence = min(0.95, confidence + 0.15)
                     reasoning.append(f"Price model predicts {pred_change:.2f}% decrease")
         
         # Apply minimum confidence threshold
