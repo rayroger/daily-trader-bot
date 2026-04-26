@@ -296,18 +296,28 @@ class DailyTrendStrategy:
         
         # Determine action based on trend and indicators
         if trend_direction == 'bullish':
-            if volume_check and indicators['rsi'] < 70:
+            if indicators['rsi'] < 70:
                 action = 'buy'
-                confidence = 0.7
-                reasoning.append(f"Bullish trend with strong volume (ratio: {indicators['volume_ratio']:.2f})")
+                confidence = 0.65
+                reasoning.append(f"Bullish trend detected")
                 reasoning.append(f"RSI at {indicators['rsi']:.2f} shows room for growth")
+                if volume_check:
+                    confidence = 0.7
+                    reasoning.append(f"Volume confirms trend (ratio: {indicators['volume_ratio']:.2f})")
+                else:
+                    reasoning.append(f"Below-average volume (ratio: {indicators['volume_ratio']:.2f}), reduced confidence")
         
         elif trend_direction == 'bearish':
-            if volume_check and indicators['rsi'] > 30:
+            if indicators['rsi'] > 30:
                 action = 'sell'
-                confidence = 0.7
-                reasoning.append(f"Bearish trend with strong volume (ratio: {indicators['volume_ratio']:.2f})")
+                confidence = 0.65
+                reasoning.append(f"Bearish trend detected")
                 reasoning.append(f"RSI at {indicators['rsi']:.2f} suggests downward pressure")
+                if volume_check:
+                    confidence = 0.7
+                    reasoning.append(f"Volume confirms trend (ratio: {indicators['volume_ratio']:.2f})")
+                else:
+                    reasoning.append(f"Below-average volume (ratio: {indicators['volume_ratio']:.2f}), reduced confidence")
         
         # Adjust confidence based on volatility
         if indicators['volatility'] > 5:
