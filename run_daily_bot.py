@@ -17,12 +17,32 @@ from daily_trader_bot.utils.config import Config
 from daily_trader_bot.utils.data_store import DataStore
 import logging
 
-# Set up logging
+# Set up logging for this module only (avoid duplicate output with TradingBot's logger)
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+
+def _parse_bool(value: str, default: bool) -> bool:
+    """Parse a string into a boolean, accepting true/false/1/0/yes/no/on/off."""
+    if value is None:
+        return default
+    v = value.strip().lower()
+    if v in ("1", "true", "yes", "y", "on"):
+        return True
+    if v in ("0", "false", "no", "n", "off"):
+        return False
+    return default
+
+
+def _parse_float(value: str, default: float) -> float:
+    """Parse a string into a float, returning default on failure."""
+    try:
+        return float(value) if value is not None and str(value).strip() != "" else default
+    except (ValueError, TypeError):
+        return default
 
 
 def main():
@@ -37,6 +57,29 @@ def main():
     
     # Initialize configuration
     config = Config()
+
+    # Apply env var overrides so that workflow_dispatch inputs and repo variables
+    # are honoured at runtime.  Each override is a no-op when the variable is
+    # absent or empty, so default behaviour is preserved.
+    symbols_override = os.environ.get("SYMBOLS", "").strip()
+    if symbols_override:
+        config.set("trading.symbols", symbols_override)
+
+    exec_override = os.environ.get("EXECUTE_TRADES")
+    if exec_override is not None and exec_override.strip() != "":
+        config.set("trading.auto_execute", _parse_bool(exec_override, True))
+
+    min_conf_raw = os.environ.get("MIN_CONFIDENCE")
+    if min_conf_raw is not None and min_conf_raw.strip() != "":
+        config.set("strategy.min_confidence", _parse_float(min_conf_raw, 0.6))
+
+    vol_thr_raw = os.environ.get("VOLUME_THRESHOLD")
+    if vol_thr_raw is not None and vol_thr_raw.strip() != "":
+        config.set("strategy.volume_threshold", _parse_float(vol_thr_raw, 1.5))
+
+    debug_raw = os.environ.get("DEBUG_STRATEGY")
+    if debug_raw is not None and debug_raw.strip() != "":
+        config.set("strategy.debug", _parse_bool(debug_raw, False))
     
     # Check if portfolio exists, otherwise initialize
     portfolio_state = data_store.load_portfolio_state()
