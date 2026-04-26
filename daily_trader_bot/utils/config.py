@@ -60,7 +60,8 @@ class Config:
                 'volume_threshold': 1.5,
                 'min_confidence': 0.6,
                 'stop_loss_pct': 0.05,
-                'take_profit_pct': 0.10
+                'take_profit_pct': 0.10,
+                'debug': False
             },
             'model': {
                 'n_estimators': 100,

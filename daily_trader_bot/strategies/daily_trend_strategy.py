@@ -53,6 +53,12 @@ class DailyTrendStrategy:
         self.min_confidence = self.config.get('min_confidence', 0.6)
         self.stop_loss_pct = self.config.get('stop_loss_pct', 0.05)
         self.take_profit_pct = self.config.get('take_profit_pct', 0.10)
+        self.debug = bool(self.config.get('debug', False))
+
+    def _dbg(self, msg: str) -> None:
+        """Print a debug message when strategy.debug is enabled."""
+        if self.debug:
+            print(f"[strategy-debug] {msg}", flush=True)
 
     def calculate_technical_indicators(self, data: pd.DataFrame) -> Dict:
         """
@@ -276,6 +282,17 @@ class DailyTrendStrategy:
         
         # Check volume
         volume_check = indicators['volume_ratio'] >= self.volume_threshold
+
+        self._dbg(
+            f"{symbol}: trend={trend_direction}, "
+            f"vol_ratio={indicators['volume_ratio']:.2f} (threshold={self.volume_threshold}), "
+            f"rsi={indicators['rsi']:.2f}, "
+            f"sma_short={indicators['sma_short']:.4f}, sma_long={indicators['sma_long']:.4f}, "
+            f"macd={indicators['macd']:.4f}, macd_signal={indicators['macd_signal']:.4f}, "
+            f"momentum={indicators['momentum']:.2f}, volatility={indicators['volatility']:.2f}, "
+            f"min_confidence={self.min_confidence}"
+        )
+        self._dbg(f"{symbol}: volume_check={volume_check}")
         
         # Determine action based on trend and indicators
         if trend_direction == 'bullish':
@@ -335,6 +352,9 @@ class DailyTrendStrategy:
         
         # Apply minimum confidence threshold
         if confidence < self.min_confidence:
+            self._dbg(
+                f"{symbol}: confidence {confidence:.2f} < min_confidence {self.min_confidence} => HOLD"
+            )
             action = 'hold'
             reasoning.append(f"Confidence {confidence:.2f} below threshold {self.min_confidence}")
         

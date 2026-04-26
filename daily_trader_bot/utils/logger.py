@@ -31,6 +31,10 @@ def setup_logger(
     # Remove existing handlers
     logger.handlers = []
     
+    # Do not propagate to root logger to avoid duplicate output when
+    # logging.basicConfig() is also active (e.g. in run_daily_bot.py).
+    logger.propagate = False
+    
     # Create formatter
     formatter = logging.Formatter(
         '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
