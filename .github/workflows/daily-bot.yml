@@ -18,9 +18,8 @@ on:
         required: false
         default: 'true'
 
-# No write permission needed when we do not commit back to the repo
 permissions:
-  contents: read
+  contents: write  # Required to commit trading data back to the repository
 
 jobs:
   run-bot:
@@ -43,6 +42,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
+    - name: Configure git
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+
     - name: Run daily trading bot
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -56,7 +60,18 @@ jobs:
       run: |
         echo "Running daily trading bot..."
         python run_daily_bot.py
-    
+
+    - name: Commit and push trading data
+      run: |
+        if [[ -n $(git status --porcelain trading_data/) ]]; then
+          git add trading_data/
+          git commit -m "🤖 Daily trading bot run - $(date +'%Y-%m-%d %H:%M:%S UTC')"
+          git push
+          echo "Trading data committed and pushed"
+        else
+          echo "No changes to commit"
+        fi
+
     - name: Upload trading data as artifact
       if: always()
       uses: actions/upload-artifact@v4
