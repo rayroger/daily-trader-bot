@@ -18,8 +18,9 @@ on:
         required: false
         default: 'true'
 
+# No write permission needed when we do not commit back to the repo
 permissions:
-  contents: write  # Need write permission to commit trading data back to repo
+  contents: read
 
 jobs:
   run-bot:
@@ -29,7 +30,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        # Fetch full history for proper git operations
         fetch-depth: 0
     
     - name: Set up Python
@@ -43,35 +43,25 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
-    - name: Configure git
-      run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-    
     - name: Run daily trading bot
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        # Optional overrides for manual runs
+        SYMBOLS: ${{ inputs.symbols }}
+        EXECUTE_TRADES: ${{ inputs.execute_trades }}
+        # Strategy tuning / debug (safe defaults; override in repo variables or environment if desired)
+        MIN_CONFIDENCE: ${{ vars.MIN_CONFIDENCE }}
+        VOLUME_THRESHOLD: ${{ vars.VOLUME_THRESHOLD }}
+        DEBUG_STRATEGY: ${{ vars.DEBUG_STRATEGY }}
       run: |
         echo "Running daily trading bot..."
         python run_daily_bot.py
     
-    - name: Commit and push changes
-      run: |
-        # Check if there are changes to commit
-        if [[ -n $(git status --porcelain) ]]; then
-          git add trading_data/
-          git commit -m "📊 Daily bot run - $(date +'%Y-%m-%d %H:%M:%S UTC')"
-          git push
-          echo "Changes committed and pushed"
-        else
-          echo "No changes to commit"
-        fi
-    
-    - name: Upload trading logs as artifact
+    - name: Upload trading data as artifact
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: trading-logs-${{ github.run_number }}
+        name: trading-data-${{ github.run_number }}
         path: |
           trading_data/
         retention-days: 90
