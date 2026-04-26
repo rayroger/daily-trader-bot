@@ -10,6 +10,15 @@ from datetime import datetime
 from typing import Dict, List, Optional
 
 
+class _DatetimeEncoder(json.JSONEncoder):
+    """JSON encoder that converts datetime objects to ISO 8601 strings."""
+
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+        return super().default(obj)
+
+
 class DataStore:
     """
     Handles persistent storage of portfolio and trading data.
@@ -113,7 +122,7 @@ class DataStore:
         filename = os.path.join(self.analysis_dir, f"analysis_{date}.json")
         
         with open(filename, 'w') as f:
-            json.dump(analysis, f, indent=2)
+            json.dump(analysis, f, indent=2, cls=_DatetimeEncoder)
     
     def get_portfolio_summary(self) -> Dict:
         """

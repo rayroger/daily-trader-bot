@@ -50,6 +50,7 @@ jobs:
     - name: Run daily trading bot
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        ALPACA_ACCOUNT_NUMBER: ${{ secrets.ALPACA_ACCOUNT_NUMBER }}
         # Optional overrides for manual runs
         SYMBOLS: ${{ inputs.symbols }}
         EXECUTE_TRADES: ${{ inputs.execute_trades }}
