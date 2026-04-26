@@ -3,7 +3,7 @@
 A Python-based AI-assisted trading bot designed to follow daily market trends. This bot provides a flexible, extensible architecture that allows you to:
 
 - 🏢 **Use different brokers** - Start with paper trading and easily switch to real brokers
-- 📊 **Multiple data sources** - Fetch market data from Yahoo Finance, Google Finance, and more
+- 📊 **Multiple data sources** - Fetch market data from Yahoo Finance and more
 - 🤖 **Various AI providers** - Leverage OpenAI, Anthropic, or custom AI models for market analysis
 - 📈 **Price prediction** - Train and use ML models to predict stock prices
 - 🎯 **Daily trend following** - Automated strategy that analyzes and trades based on daily trends
@@ -52,11 +52,19 @@ Sophisticated trading strategy that combines:
 git clone https://github.com/rayroger/daily-trader-bot.git
 cd daily-trader-bot
 
-# Install dependencies
+# Install dependencies (includes openai for AI-powered analysis)
 pip install -r requirements.txt
 
 # Optional: Set up AI provider API key
 export OPENAI_API_KEY="your-api-key-here"
+```
+
+### Verify the Installation
+
+Run the self-test suite to confirm everything works before making live API calls:
+
+```bash
+python test_bot.py
 ```
 
 ## Quick Start
@@ -155,7 +163,7 @@ The bot is configured to run automatically every day using GitHub Actions. This 
    - `portfolio_state.json` - Current portfolio state
    - `trading_history.json` - Complete trading history
    - `analysis/analysis_YYYY-MM-DD.json` - Daily analysis results
-6. **Changes are committed** back to the repository automatically
+6. **Changes are committed** back to the repository automatically (portfolio state, trading history, and analysis files)
 
 ### Data Storage
 
@@ -191,6 +199,9 @@ You can manually trigger a bot run:
 To test the bot locally before automation:
 
 ```bash
+# Quick self-test (no external API calls needed)
+python test_bot.py
+
 # Run the daily bot script
 python run_daily_bot.py
 
@@ -267,13 +278,23 @@ QQQ (NASDAQ-100):
 
 ### Configuration
 
-The bot can be configured via the Config class or environment variables:
+The bot can be configured via the Config class or a JSON file. When running through GitHub Actions, strategy parameters can also be overridden without editing any file by using [Repository Variables](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables) (`Settings → Secrets and variables → Actions → Variables`):
+
+| Variable | Default | Description |
+|---|---|---|
+| `MIN_CONFIDENCE` | `0.6` | Minimum signal confidence (0–1) required before a trade is placed |
+| `VOLUME_THRESHOLD` | `1.5` | Minimum volume ratio vs. 20-day average to confirm a trade signal |
+| `DEBUG_STRATEGY` | `false` | Set to `true` to print per-symbol signal breakdowns to the Actions log |
+
+These same values can be set programmatically:
 
 ```python
 # trading.symbols - Comma-separated list of symbols
 # trading.auto_execute - Whether to execute trades (true/false)
 # trading.default_quantity - Default number of shares per trade
 # broker.initial_balance - Starting balance for paper trading
+# strategy.min_confidence - Minimum confidence threshold (0–1)
+# strategy.volume_threshold - Minimum volume ratio to confirm a signal
 ```
 
 ## Architecture
@@ -282,34 +303,49 @@ The bot can be configured via the Config class or environment variables:
 
 ```
 daily-trader-bot/
+├── .github/
+│   └── workflows/
+│       ├── daily-bot.yml          # Scheduled trading bot workflow
+│       └── daily-status-report.yml # Scheduled status report workflow
 ├── daily_trader_bot/
 │   ├── __init__.py
-│   ├── bot.py                 # Main TradingBot class
+│   ├── bot.py                     # Main TradingBot class
 │   ├── brokers/
 │   │   ├── __init__.py
-│   │   ├── base.py           # Abstract broker interface
-│   │   └── paper_trading.py  # Paper trading implementation
+│   │   ├── base.py               # Abstract broker interface
+│   │   └── paper_trading.py      # Paper trading implementation
 │   ├── data_sources/
 │   │   ├── __init__.py
-│   │   ├── base.py           # Abstract data source interface
-│   │   └── yahoo_finance.py  # Yahoo Finance implementation
+│   │   ├── base.py               # Abstract data source interface
+│   │   └── yahoo_finance.py      # Yahoo Finance implementation
 │   ├── ai_providers/
 │   │   ├── __init__.py
-│   │   ├── base.py           # Abstract AI provider interface
-│   │   └── openai_provider.py # OpenAI implementation
+│   │   ├── base.py               # Abstract AI provider interface
+│   │   └── openai_provider.py    # OpenAI implementation
 │   ├── models/
 │   │   ├── __init__.py
-│   │   └── price_predictor.py # ML price prediction model
+│   │   └── price_predictor.py    # ML price prediction model
 │   ├── strategies/
 │   │   ├── __init__.py
 │   │   └── daily_trend_strategy.py # Daily trend strategy
 │   └── utils/
 │       ├── __init__.py
-│       ├── config.py         # Configuration management
-│       └── logger.py         # Logging utilities
+│       ├── config.py             # Configuration management
+│       ├── data_store.py         # Portfolio & history persistence
+│       └── logger.py             # Logging utilities
 ├── examples/
-│   ├── basic_usage.py        # Basic usage examples
-│   └── custom_components.py  # Custom component examples
+│   ├── basic_usage.py            # Basic usage examples
+│   └── custom_components.py      # Custom component examples
+├── trading_data/                  # Auto-generated; committed by bot runs
+│   ├── portfolio_state.json
+│   ├── trading_history.json
+│   ├── analysis/                  # Per-day analysis JSON files
+│   └── reports/                   # Per-day status report text files
+├── config.example.json            # Example configuration file
+├── generate_daily_status.py       # Status report generator script
+├── run_daily_bot.py               # Daily bot entry-point script
+├── setup.py                       # Package setup
+├── test_bot.py                    # Unit / smoke tests
 ├── requirements.txt
 └── README.md
 ```
@@ -439,9 +475,10 @@ python examples/custom_components.py
 - numpy >= 1.24.0
 - yfinance >= 0.2.28
 - scikit-learn >= 1.3.0
+- python-dateutil >= 2.8.0
 
-### Optional Requirements
-- openai >= 1.0.0 (for AI-powered analysis)
+### AI Requirements
+- openai >= 1.0.0 — included in `requirements.txt` by default; AI features are automatically disabled at runtime if `OPENAI_API_KEY` is not set
 
 ## Disclaimer
 
