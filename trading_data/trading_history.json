@@ -4527,5 +4527,45 @@
     "portfolio_value": 100000.0,
     "cash_balance": 100000.0,
     "timestamp": "2026-06-18T22:16:45.945390"
+  },
+  {
+    "date": "2026-06-19",
+    "symbols_analyzed": 5,
+    "signals": [
+      {
+        "symbol": "AAPL",
+        "action": "sell",
+        "confidence": 0.7,
+        "current_price": 298.010009765625
+      },
+      {
+        "symbol": "MSFT",
+        "action": "hold",
+        "confidence": 0.5,
+        "current_price": 379.3999938964844
+      },
+      {
+        "symbol": "GOOGL",
+        "action": "sell",
+        "confidence": 0.65,
+        "current_price": 368.0299987792969
+      },
+      {
+        "symbol": "AMZN",
+        "action": "sell",
+        "confidence": 0.7,
+        "current_price": 244.38999938964844
+      },
+      {
+        "symbol": "TSLA",
+        "action": "sell",
+        "confidence": 0.65,
+        "current_price": 400.489990234375
+      }
+    ],
+    "orders": [],
+    "portfolio_value": 100000.0,
+    "cash_balance": 100000.0,
+    "timestamp": "2026-06-19T21:52:59.398799"
   }
 ]
