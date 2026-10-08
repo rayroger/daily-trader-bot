@@ -1,0 +1,205 @@
+{
+  "date": "2026-10-08",
+  "session": {
+    "timestamp": "2026-10-08T01:11:35.275179",
+    "symbols_analyzed": 5,
+    "signals": [
+      {
+        "symbol": "AAPL",
+        "action": "sell",
+        "confidence": 0.65,
+        "reasoning": [
+          "Bearish trend detected",
+          "RSI at 45.37 suggests downward pressure",
+          "Below-average volume (ratio: 0.83), reduced confidence"
+        ],
+        "current_price": NaN,
+        "stop_loss": null,
+        "take_profit": null,
+        "analysis": {
+          "symbol": "AAPL",
+          "trend_direction": "bearish",
+          "trend_strength": NaN,
+          "indicators": {
+            "sma_short": NaN,
+            "sma_long": NaN,
+            "ema_short": 333.5631536655411,
+            "current_price": NaN,
+            "momentum": NaN,
+            "volume_ratio": 0.8322078600011487,
+            "volatility": 1.2906220601098255,
+            "rsi": 45.36705908019165,
+            "macd": 3.598306972612818,
+            "macd_signal": 4.547759361860978,
+            "bb_upper": NaN,
+            "bb_middle": NaN,
+            "bb_lower": NaN,
+            "trend_strength": NaN
+          },
+          "ai_analysis": null,
+          "price_prediction": null,
+          "timestamp": "2026-10-08T01:11:35.963958"
+        },
+        "timestamp": "2026-10-08T01:11:35.963986"
+      },
+      {
+        "symbol": "MSFT",
+        "action": "sell",
+        "confidence": 0.65,
+        "reasoning": [
+          "Bearish trend detected",
+          "RSI at 73.67 suggests downward pressure",
+          "Below-average volume (ratio: 0.73), reduced confidence"
+        ],
+        "current_price": NaN,
+        "stop_loss": null,
+        "take_profit": null,
+        "analysis": {
+          "symbol": "MSFT",
+          "trend_direction": "bearish",
+          "trend_strength": NaN,
+          "indicators": {
+            "sma_short": NaN,
+            "sma_long": NaN,
+            "ema_short": 514.9466552781654,
+            "current_price": NaN,
+            "momentum": NaN,
+            "volume_ratio": 0.7308309081440537,
+            "volatility": 1.3903970332929885,
+            "rsi": 73.6683992769191,
+            "macd": 6.390621376339652,
+            "macd_signal": 4.12655633520735,
+            "bb_upper": NaN,
+            "bb_middle": NaN,
+            "bb_lower": NaN,
+            "trend_strength": NaN
+          },
+          "ai_analysis": null,
+          "price_prediction": null,
+          "timestamp": "2026-10-08T01:11:36.152946"
+        },
+        "timestamp": "2026-10-08T01:11:36.152974"
+      },
+      {
+        "symbol": "GOOGL",
+        "action": "hold",
+        "confidence": 0.5,
+        "reasoning": [
+          "Confidence 0.50 below threshold 0.6"
+        ],
+        "current_price": NaN,
+        "stop_loss": null,
+        "take_profit": null,
+        "analysis": {
+          "symbol": "GOOGL",
+          "trend_direction": "neutral",
+          "trend_strength": NaN,
+          "indicators": {
+            "sma_short": NaN,
+            "sma_long": NaN,
+            "ema_short": 344.24597417157673,
+            "current_price": NaN,
+            "momentum": NaN,
+            "volume_ratio": 0.7682635261711379,
+            "volatility": 1.4794605026715728,
+            "rsi": 50.3345497186562,
+            "macd": -0.03811684996060194,
+            "macd_signal": -0.41536817283746885,
+            "bb_upper": NaN,
+            "bb_middle": NaN,
+            "bb_lower": NaN,
+            "trend_strength": NaN
+          },
+          "ai_analysis": null,
+          "price_prediction": null,
+          "timestamp": "2026-10-08T01:11:36.356725"
+        },
+        "timestamp": "2026-10-08T01:11:36.356755"
+      },
+      {
+        "symbol": "AMZN",
+        "action": "hold",
+        "confidence": 0.5,
+        "reasoning": [
+          "Confidence 0.50 below threshold 0.6"
+        ],
+        "current_price": NaN,
+        "stop_loss": null,
+        "take_profit": null,
+        "analysis": {
+          "symbol": "AMZN",
+          "trend_direction": "neutral",
+          "trend_strength": NaN,
+          "indicators": {
+            "sma_short": NaN,
+            "sma_long": NaN,
+            "ema_short": 251.35665103238748,
+            "current_price": NaN,
+            "momentum": NaN,
+            "volume_ratio": 0.9711013725246707,
+            "volatility": 1.5224289115986207,
+            "rsi": 57.8268855910969,
+            "macd": -2.370607980542786,
+            "macd_signal": -3.2096359843716993,
+            "bb_upper": NaN,
+            "bb_middle": NaN,
+            "bb_lower": NaN,
+            "trend_strength": NaN
+          },
+          "ai_analysis": null,
+          "price_prediction": null,
+          "timestamp": "2026-10-08T01:11:36.532506"
+        },
+        "timestamp": "2026-10-08T01:11:36.532535"
+      },
+      {
+        "symbol": "TSLA",
+        "action": "hold",
+        "confidence": 0.5,
+        "reasoning": [
+          "Confidence 0.50 below threshold 0.6"
+        ],
+        "current_price": NaN,
+        "stop_loss": null,
+        "take_profit": null,
+        "analysis": {
+          "symbol": "TSLA",
+          "trend_direction": "neutral",
+          "trend_strength": NaN,
+          "indicators": {
+            "sma_short": NaN,
+            "sma_long": NaN,
+            "ema_short": 368.92717833842704,
+            "current_price": NaN,
+            "momentum": NaN,
+            "volume_ratio": 0.7190008088056383,
+            "volatility": 2.657591364981789,
+            "rsi": 59.74426039897086,
+            "macd": 4.577700012540902,
+            "macd_signal": 4.465112484972208,
+            "bb_upper": NaN,
+            "bb_middle": NaN,
+            "bb_lower": NaN,
+            "trend_strength": NaN
+          },
+          "ai_analysis": null,
+          "price_prediction": null,
+          "timestamp": "2026-10-08T01:11:36.683923"
+        },
+        "timestamp": "2026-10-08T01:11:36.683951"
+      }
+    ],
+    "orders": [],
+    "portfolio": {
+      "balance": 100000.0,
+      "positions": []
+    }
+  },
+  "portfolio": {
+    "cash_balance": 100000.0,
+    "position_value": 0,
+    "total_value": 100000.0,
+    "positions": [],
+    "timestamp": "2026-10-08T01:11:36.684314"
+  }
+}
